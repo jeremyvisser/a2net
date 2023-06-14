@@ -1,0 +1,56 @@
+A2Net - IPv6 stack for Apple //e
+Copyright (c) 2023 Jeremy Visser
+
+Overview
+========
+
+This was a fun educational project for me so that I could ping my Apple //e
+over IPv6 using ICMP echo requests.
+
+Limitations
+===========
+
+Currently, you can only respond to pings.
+
+It doesn't support UDP, TCP, or anything useful.
+
+It's also unreliable above 1200 baud, where it starts dropping bytes. I'm sure
+it's fixable with sufficient debugging, as the Apple //e itself is perfectly
+capable of consuming 19200 baud data using ProTerm or Modem.Mgr.
+
+Requirements
+============
+
+- CC65
+- Apple //e with Super Serial Card (SSC) and ProDOS
+- PC connected via serial, capable of running SLIP
+
+Building
+========
+
+Assuming CC65 is installed and working, run `make`, which will output
+a ProDOS a2net.system binary.
+
+Running
+=======
+
+Transfer the `a2net` binary to a ProDOS system by some means. Suggestions:
+
+-   Use AppleCommander (https://applecommander.github.io/) to place the binary
+    on a disk image, e.g.:
+      $ java -jar ac.jar -as my.dsk < a2net
+
+    And then use ADTPro to transfer the disk image to a floppy or RAM disk.
+
+-   Use ProTerm or Modem.Mgr to transfer the binary using Xmodem or similar.
+
+Once on the system, from BASIC you can just run (including the literal hyphen):
+
+  -A2NET.SYSTEM
+
+PC side
+=======
+
+You need to run SLIP. My suggestion is SLIRP (https://slirp.sourceforge.net/).
+I no longer have notes for the exact config required, but basically you'll need
+to point SLIRP at the serial port connected to your Apple //e serial card.

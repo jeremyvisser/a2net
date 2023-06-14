@@ -1,0 +1,13 @@
+CFLAGS += -g -Wall -Werror
+LDFLAGS += -g -Wall -Werror
+CC=gcc
+
+all: test
+
+clean:
+	rm -f test *.o
+
+test: test.o log.o packet.o ip.o icmp.o
+
+.PHONY: all clean
+
